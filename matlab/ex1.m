@@ -20,6 +20,7 @@ A(1,:) = A(1,:)./sum(A(1,:));
 A(2,:) = A(2,:)./sum(A(2,:));
 
 Pi = rand(2,1);
+Pi = rand(n,1);
 Pi = Pi./sum(Pi);
 
 % Generate some paths according to this Markov model
