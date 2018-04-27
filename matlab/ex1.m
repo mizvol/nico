@@ -9,9 +9,9 @@
 clear;
 
 % Parameters
-n = 4; % number of nodes in the network
+n = 2; % number of nodes in the network
 T = 100; % number of paths
-Nm = 6; % number of nodes per path
+Nm = 4; % number of nodes per path
 
 %rand('state', 20070619);
 
