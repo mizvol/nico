@@ -9,17 +9,17 @@
 clear;
 
 % Parameters
-n = 2; % number of nodes in the network
+n = 4; % number of nodes in the network
 T = 100; % number of paths
-Nm = 4; % number of nodes per path
+Nm = 6; % number of nodes per path
 
 %rand('state', 20070619);
 
 A = rand(n);
-A(1,:) = A(1,:)./sum(A(1,:));
-A(2,:) = A(2,:)./sum(A(2,:));
+for i=1:n
+    A(i,:) = A(i,:)./sum(A(i,:));
+end
 
-Pi = rand(2,1);
 Pi = rand(n,1);
 Pi = Pi./sum(Pi);
 
@@ -59,7 +59,7 @@ for m=1:T
 	Y{m} = X{m}(tau);
 end
 
-numTrials = 10;
+numTrials = 50;
 API = cell(numTrials,2);
 LogLik = zeros(numTrials,1);
 L1err = zeros(numTrials,1);
