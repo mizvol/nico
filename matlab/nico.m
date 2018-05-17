@@ -77,6 +77,8 @@ end
 % Note to self: For normalizing over rows of a sparse matrix it's probably
 % more efficient to store the transpose of the adjacency matrix...
 
+%% START HERE NEXT TIME
+
 %% EM Algorithm Iterations
 tol = 0.01;
 Kmax = 100;
@@ -98,52 +100,52 @@ for k=1:Kmax
 					Gamma,pihat,Ahat);
 			end
 			
-		elseif (Nm(m) > plcutoff)
-			
-			% Approximate E-Step
-			numSamples = max(10000, 2*(Nm(m))^4);
-			
-			for i=1:numSamples
-				%% Sample a permutation
-				tau = zeros(Nm(m),1);
-				% Initialize flag variable
-				f = ones(Nm(m),1);
-				% Sample the first slot in the path
-				pprime = pihat(X{m});
-				cumprobs = cumsum(pprime./sum(pprime));
-				larger = find(cumprobs >= rand);
-				s = larger(1);
-				f(s) = 0;
-				tau(1) = s;
-				w = 1;
-				Aprime = Ahat(X{m},X{m});
-				% Sample the remaining slots
-				for t=2:Nm(m)
-					pprime = Aprime(s,:)'.*f;
-					if (sum(pprime) == 0)
-						break;
-					end
-					w = w*sum(pprime);
-					cumprobs = cumsum(pprime./sum(pprime));
-					larger = find(cumprobs >= rand);
-					s = larger(1);
-					tau(t) = s;
-					f(s) = 0;
-				end
-				
-				% Bookkeeping
-				if (length(find(tau==0)) == 0)
-					gamma(tau(1)) = gamma(tau(1)) + w;
-					for t=2:Nm(m)
-						Gamma(tau(t-1),tau(t)) = Gamma(tau(t-1),tau(t)) + w;
-					end
-				else
-					% Didn't sample a complete permutation
-				end
-			end
-			
-		else
-			% Path only has one node
+% 		elseif (Nm(m) > plcutoff)
+% 			
+% 			Approximate E-Step
+% 			numSamples = max(10000, 2*(Nm(m))^4);
+% 			
+% 			for i=1:numSamples
+% 				% Sample a permutation
+% 				tau = zeros(Nm(m),1);
+% 				Initialize flag variable
+% 				f = ones(Nm(m),1);
+% 				Sample the first slot in the path
+% 				pprime = pihat(X{m});
+% 				cumprobs = cumsum(pprime./sum(pprime));
+% 				larger = find(cumprobs >= rand);
+% 				s = larger(1);
+% 				f(s) = 0;
+% 				tau(1) = s;
+% 				w = 1;
+% 				Aprime = Ahat(X{m},X{m});
+% 				Sample the remaining slots
+% 				for t=2:Nm(m)
+% 					pprime = Aprime(s,:)'.*f;
+% 					if (sum(pprime) == 0)
+% 						break;
+% 					end
+% 					w = w*sum(pprime);
+% 					cumprobs = cumsum(pprime./sum(pprime));
+% 					larger = find(cumprobs >= rand);
+% 					s = larger(1);
+% 					tau(t) = s;
+% 					f(s) = 0;
+% 				end
+% 				
+% 				Bookkeeping
+% 				if (length(find(tau==0)) == 0)
+% 					gamma(tau(1)) = gamma(tau(1)) + w;
+% 					for t=2:Nm(m)
+% 						Gamma(tau(t-1),tau(t)) = Gamma(tau(t-1),tau(t)) + w;
+% 					end
+% 				else
+% 					Didn't sample a complete permutation
+% 				end
+% 			end
+% 			
+% 		else
+% 			Path only has one node
 		end
 		
 		% Store info for this path
