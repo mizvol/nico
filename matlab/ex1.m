@@ -83,7 +83,6 @@ for k=1:numTrials
 
 	API{k,1} = pihat;
 	API{k,2} = Ahat;
-    % change back to Y!!!
 	LogLik(k) = loglik(Y,Ahat,pihat);
 	L1err(k) = sum(sum(abs(Ahat - A))) + sum(abs(pihat - Pi));
 end
