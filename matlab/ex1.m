@@ -9,9 +9,9 @@
 clear;
 
 % Parameters
-n = 2; % number of nodes in the network
+n = 3; % number of nodes in the network
 T = 100; % number of paths
-Nm = 4; % number of nodes per path
+Nm = 5; % number of nodes per path
 % rng(2);
 rand('twister', 1337);
 %rand('state', 20070619);
@@ -83,7 +83,7 @@ for k=1:numTrials
 
 	API{k,1} = pihat;
 	API{k,2} = Ahat;
-	LogLik(k) = loglik(Y,Ahat,pihat);
+	LogLik(k) = loglik(X,Ahat,pihat);
 	L1err(k) = sum(sum(abs(Ahat - A))) + sum(abs(pihat - Pi));
 end
 
